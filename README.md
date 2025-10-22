@@ -132,4 +132,5 @@ socket=
 ---
 
 ### 🧱 Hinweis zur Basis
+Dieses Projekt basiert auf [**„TeamSpeak 3 Server (Basis: ich777)”**](https://github.com/ich777/docker-teamspeak) und erweitert es um eine saubere MariaDB-Integration, Unraid-freundliche Defaults und `gosu`-basierte Startscripte.
 Dieses Projekt basiert auf **„TeamSpeak 3 Server (Basis: ich777)“** und erweitert es um eine saubere MariaDB-Integration, Unraid-freundliche Defaults und `gosu`-basierte Startscripte.
