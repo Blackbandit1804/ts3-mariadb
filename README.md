@@ -1,4 +1,12 @@
 # 🧩 TeamSpeak 3 Server – MariaDB-ready (Unraid)
+
+![Docker Pulls](https://img.shields.io/docker/pulls/blackbandit1804/teamspeak-mariadb?style=for-the-badge&logo=docker)
+![Image Size](https://img.shields.io/docker/image-size/blackbandit1804/teamspeak-mariadb/latest?style=for-the-badge)
+![GitHub Release](https://img.shields.io/github/v/release/Blackbandit1804/ts3-mariadb?style=for-the-badge&logo=github)
+![GitHub last commit](https://img.shields.io/github/last-commit/Blackbandit1804/ts3-mariadb?style=for-the-badge&logo=github)
+![Platform](https://img.shields.io/badge/platform-Unraid-orange?style=for-the-badge&logo=unraid)
+![Maintainer](https://img.shields.io/badge/maintainer-Blackbandit1804-blue?style=for-the-badge&logo=github)
+
 **TeamSpeak 3 Server (Basis: ich777)**  
 Leichtgewichtiges, Unraid-freundliches Image mit aktivierter **MariaDB**-Anbindung (statt SQLite).  
 Getestet auf **Unraid 7.1.4**.
