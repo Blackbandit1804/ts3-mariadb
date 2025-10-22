@@ -31,11 +31,13 @@ jobs:
         id: prep
         run: |
           IMAGE="blackbandit1804/teamspeak-mariadb"
-          TAGS="--tag ${IMAGE}:latest"
-          if [[ "${GITHUB_REF_TYPE}" == "tag" ]]; then
+          # immer latest
+          TAGS="${IMAGE}:latest"
+          # bei Git-Tag zusätzlich :vX.Y.Z und :X.Y.Z
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
             RAW="${GITHUB_REF_NAME}"   # z.B. v1.0.0
             CLEAN="${RAW#v}"           # 1.0.0
-            TAGS="$TAGS --tag ${IMAGE}:${RAW} --tag ${IMAGE}:${CLEAN}"
+            TAGS="${TAGS},${IMAGE}:${RAW},${IMAGE}:${CLEAN}"
           fi
           echo "tags=${TAGS}" >> "$GITHUB_OUTPUT"
 
