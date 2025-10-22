@@ -7,7 +7,7 @@
 ![Platform](https://img.shields.io/badge/platform-Unraid-orange?style=for-the-badge&logo=unraid)
 ![Maintainer](https://img.shields.io/badge/maintainer-Blackbandit1804-blue?style=for-the-badge&logo=github)
 
-**TeamSpeak 3 Server (Basis: ich777)**  
+**TeamSpeak 3 Server (Basis: ich777)”**](https://github.com/ich777/docker-teamspeak)**  
 Leichtgewichtiges, Unraid-freundliches Image mit aktivierter **MariaDB**-Anbindung (statt SQLite).  
 Getestet auf **Unraid 7.1.4**.
 
