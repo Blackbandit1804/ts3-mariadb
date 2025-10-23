@@ -7,7 +7,7 @@ LABEL org.opencontainers.image.source="https://github.com/Blackbandit1804/docker
 LABEL org.opencontainers.image.url="https://hub.docker.com/r/blackbandit1804/teamspeak-mariadb"
 LABEL org.opencontainers.image.licenses="MIT"
 
-# Standard-ENV wie bei ich777 – plus unsere Ergänzungen
+# Standard-ENV wie bei ich777 – plus meine Ergänzungen
 ENV DATA_DIR="/teamspeak" \
     TS3SERVER_LICENSE="" \
     ENABLE_TSDNS="" \
