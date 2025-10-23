@@ -1,5 +1,8 @@
 # 🧩 TeamSpeak 3 Server – MariaDB-ready (Unraid)
 
+[➡️ Releases & Changelog](https://github.com/Blackbandit1804/ts3-mariadb/releases)
+
+
 ![Docker Pulls](https://img.shields.io/docker/pulls/blackbandit1804/teamspeak-mariadb?style=for-the-badge&logo=docker)
 ![Image Size](https://img.shields.io/docker/image-size/blackbandit1804/teamspeak-mariadb/latest?style=for-the-badge)
 ![GitHub Release](https://img.shields.io/github/v/release/Blackbandit1804/ts3-mariadb?style=for-the-badge&logo=github)
@@ -7,7 +10,7 @@
 ![Platform](https://img.shields.io/badge/platform-Unraid-orange?style=for-the-badge&logo=unraid)
 ![Maintainer](https://img.shields.io/badge/maintainer-Blackbandit1804-blue?style=for-the-badge&logo=github)
 
-**TeamSpeak 3 Server [**„(Basis: ich777)”**](https://github.com/ich777/docker-teamspeak)**  
+**TeamSpeak 3 Server (Basis: [ich777/docker-teamspeak](https://github.com/ich777/docker-teamspeak))**  
 Leichtgewichtiges, Unraid-freundliches Image mit aktivierter **MariaDB**-Anbindung (statt SQLite).  
 Getestet auf **Unraid 7.1.4**.
 
@@ -25,14 +28,21 @@ Getestet auf **Unraid 7.1.4**.
 - `latest` – aktuelles Build
 - `3.13.7` – TeamSpeak Server 3.13.7
 - `YYYY.MM.DD` – Build-Datum (z. B. `2025.10.22`)
-- `vX.Y.Z` / `X.Y.Z` – Release-Tags (z. B. `v1.0.1` und `1.0.1`)
+- `vX.Y.Z` / `X.Y.Z` – Release tags (z. B. `v1.0.1` und `1.0.1`)
 
 ### 🖥️ Architectures
 - ✅ linux/amd64
 
 ### 🚀 Schnellstart (Docker CLI)
 ```bash
-docker run -d --name TeamSpeak3-MariaDB   --restart unless-stopped   -p 9987:9987/udp -p 10011:10011 -p 30033:30033   -e TS3SERVER_LICENSE=accept   -e EXTRA_START_PARAMS="inifile=/teamspeak/ts3server.ini"   -e UID=99 -e GID=100 -e UMASK=000 -e DATA_PERM=770   -v /mnt/cache/appdata/teamspeak3:/teamspeak   blackbandit1804/teamspeak-mariadb:latest
+docker run -d --name TeamSpeak3-MariaDB \
+  --restart unless-stopped \
+  -p 9987:9987/udp -p 10011:10011 -p 30033:30033 \
+  -e TS3SERVER_LICENSE=accept \
+  -e EXTRA_START_PARAMS="inifile=/teamspeak/ts3server.ini" \
+  -e UID=99 -e GID=100 -e UMASK=000 -e DATA_PERM=770 \
+  -v /mnt/cache/appdata/teamspeak3:/teamspeak \
+  blackbandit1804/teamspeak-mariadb:latest
 ```
 
 > Beim ersten Start wird `ts3server.ini` automatisch erzeugt.  
@@ -97,17 +107,24 @@ docker logs -f TeamSpeak3-MariaDB
 - 🗂️ **Auto-setup** — creates `ts3server.ini` & `ts3db_mariadb.ini` if needed
 
 ### 🏷️ Supported tags
-- `latest` – currennt Build
+- `latest` – current Build
 - `3.13.7` – TeamSpeak Server 3.13.7
-- `YYYY.MM.DD` – Build-Date (e. g. `2025.10.22`)
-- `vX.Y.Z` / `X.Y.Z` – Release-Tags (e. g. `v1.0.1` and `1.0.1`)
+- `YYYY.MM.DD` – Build date (e.g. `2025.10.22`)
+- `vX.Y.Z` / `X.Y.Z` – Release tags (e.g. `v1.0.1` and `1.0.1`)
 
 ### 🖥️ Architectures
 - ✅ linux/amd64
 
 ### 🚀 Quick Start (Docker CLI)
 ```bash
-docker run -d --name TeamSpeak3-MariaDB   --restart unless-stopped   -p 9987:9987/udp -p 10011:10011 -p 30033:30033   -e TS3SERVER_LICENSE=accept   -e EXTRA_START_PARAMS="inifile=/teamspeak/ts3server.ini"   -e UID=99 -e GID=100 -e UMASK=000 -e DATA_PERM=770   -v /mnt/cache/appdata/teamspeak3:/teamspeak   blackbandit1804/teamspeak-mariadb:latest
+docker run -d --name TeamSpeak3-MariaDB \
+  --restart unless-stopped \
+  -p 9987:9987/udp -p 10011:10011 -p 30033:30033 \
+  -e TS3SERVER_LICENSE=accept \
+  -e EXTRA_START_PARAMS="inifile=/teamspeak/ts3server.ini" \
+  -e UID=99 -e GID=100 -e UMASK=000 -e DATA_PERM=770 \
+  -v /mnt/cache/appdata/teamspeak3:/teamspeak \
+  blackbandit1804/teamspeak-mariadb:latest
 ```
 
 > On first launch, `ts3server.ini` is generated automatically.  
