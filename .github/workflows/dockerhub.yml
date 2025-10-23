@@ -32,14 +32,17 @@ jobs:
         run: |
           IMAGE="blackbandit1804/teamspeak-mariadb"
           # immer latest
-          TAGS="${IMAGE}:latest"
+          TAGS_CSV="${IMAGE}:latest"
           # bei Git-Tag zusätzlich :vX.Y.Z und :X.Y.Z
           if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
             RAW="${GITHUB_REF_NAME}"   # z.B. v1.0.0
             CLEAN="${RAW#v}"           # 1.0.0
-            TAGS="${TAGS},${IMAGE}:${RAW},${IMAGE}:${CLEAN}"
+            TAGS_CSV="${TAGS_CSV},${IMAGE}:${RAW},${IMAGE}:${CLEAN}"
           fi
-          echo "tags=${TAGS}" >> "$GITHUB_OUTPUT"
+
+          # Outputs: CSV (für build-push) und SPACE (für Schleifen)
+          echo "tags=${TAGS_CSV}" >> "$GITHUB_OUTPUT"
+          echo "tags_space=$(echo "${TAGS_CSV}" | tr ',' ' ')" >> "$GITHUB_OUTPUT"
 
       - name: Build & Push (linux/amd64)
         uses: docker/build-push-action@v6
@@ -50,3 +53,13 @@ jobs:
           tags: ${{ steps.prep.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Healthcheck: tags available on Docker Hub
+        run: |
+          set -euo pipefail
+          for TAG in ${{ steps.prep.outputs.tags_space }}; do
+            echo "🔎 Checking availability for: $TAG"
+            docker buildx imagetools inspect "$TAG" >/dev/null
+            echo "✅ OK: $TAG found"
+          done
+          echo "🎉 All tags are available on Docker Hub."
