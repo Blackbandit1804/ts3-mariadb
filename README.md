@@ -21,6 +21,15 @@ Getestet auf **Unraid 7.1.4**.
 - 🚫 **Kein sudo** – Start via `gosu` (non-root)  
 - 🗂️ **Auto-Setup** – erzeugt bei Bedarf `ts3server.ini` & `ts3db_mariadb.ini`
 
+### 🏷️ Supported tags
+- `latest` – aktuelles Build
+- `3.13.7` – TeamSpeak Server 3.13.7
+- `YYYY.MM.DD` – Build-Datum (z. B. `2025.10.22`)
+- `vX.Y.Z` / `X.Y.Z` – Release-Tags (z. B. `v1.0.1` und `1.0.1`)
+
+### 🖥️ Architectures
+- ✅ linux/amd64
+
 ### 🚀 Schnellstart (Docker CLI)
 ```bash
 docker run -d --name TeamSpeak3-MariaDB   --restart unless-stopped   -p 9987:9987/udp -p 10011:10011 -p 30033:30033   -e TS3SERVER_LICENSE=accept   -e EXTRA_START_PARAMS="inifile=/teamspeak/ts3server.ini"   -e UID=99 -e GID=100 -e UMASK=000 -e DATA_PERM=770   -v /mnt/cache/appdata/teamspeak3:/teamspeak   blackbandit1804/teamspeak-mariadb:latest
@@ -42,9 +51,13 @@ Danach in der WebUI: **Docker → Container hinzufügen → Vorlage „TeamSpeak
 - `/teamspeak` → persistente Daten (INI, Logs, Dateien)  
   *Empfehlung:* `/mnt/cache/appdata/teamspeak3:/teamspeak`
 
-**Ports**
-- UDP `9987` (Voice) · TCP `10011` (Query) · TCP `30033` (File-Transfer)  
-- Optional TSDNS: TCP `41144`
+### 🌐 Ports
+| Dienst             | Port/Proto |
+|--------------------|------------|
+| Voice              | 9987/udp   |
+| Server Query       | 10011/tcp  |
+| File Transfer      | 30033/tcp  |
+| TSDNS *(optional)* | 41144/tcp  |
 
 **Wichtige Variablen**
 - `TS3SERVER_LICENSE=accept` *(Pflicht)*  
@@ -83,6 +96,15 @@ docker logs -f TeamSpeak3-MariaDB
 - 🚫 **No sudo** — runs via `gosu` (non-root)  
 - 🗂️ **Auto-setup** — creates `ts3server.ini` & `ts3db_mariadb.ini` if needed
 
+### 🏷️ Supported tags
+- `latest` – currennt Build
+- `3.13.7` – TeamSpeak Server 3.13.7
+- `YYYY.MM.DD` – Build-Date (e. g. `2025.10.22`)
+- `vX.Y.Z` / `X.Y.Z` – Release-Tags (e. g. `v1.0.1` and `1.0.1`)
+
+### 🖥️ Architectures
+- ✅ linux/amd64
+
 ### 🚀 Quick Start (Docker CLI)
 ```bash
 docker run -d --name TeamSpeak3-MariaDB   --restart unless-stopped   -p 9987:9987/udp -p 10011:10011 -p 30033:30033   -e TS3SERVER_LICENSE=accept   -e EXTRA_START_PARAMS="inifile=/teamspeak/ts3server.ini"   -e UID=99 -e GID=100 -e UMASK=000 -e DATA_PERM=770   -v /mnt/cache/appdata/teamspeak3:/teamspeak   blackbandit1804/teamspeak-mariadb:latest
@@ -104,9 +126,13 @@ Then in the web UI: **Docker → Add Container → Template “TeamSpeak3-MariaD
 - `/teamspeak` → persistent data (INI, logs, files)  
   *Recommended:* `/mnt/cache/appdata/teamspeak3:/teamspeak`
 
-**Ports**
-- UDP `9987` (Voice) · TCP `10011` (Query) · TCP `30033` (File Transfer)  
-- Optional TSDNS: TCP `41144`
+### 🌐 Ports
+| Service            | Port/Proto |
+|--------------------|------------|
+| Voice              | 9987/udp   |
+| Server Query       | 10011/tcp  |
+| File Transfer      | 30033/tcp  |
+| TSDNS *(optional)* | 41144/tcp  |
 
 **Key Variables**
 - `TS3SERVER_LICENSE=accept` *(required)*  
