@@ -1,10 +1,21 @@
 name: Build & Push to Docker Hub
 
+#on:
+#  push:
+#    branches: [ "main" ]
+#    tags: [ "v*", "V*" ]   # bei v1.2.3 zusätzlich :v1.2.3 und :1.2.3
+#  workflow_dispatch:
+
 on:
   push:
     branches: [ "main" ]
-    tags: [ "v*", "V*" ]   # bei v1.2.3 zusätzlich :v1.2.3 und :1.2.3
+    tags: [ "v*", "V*" ]
   workflow_dispatch:
+    inputs:
+      version:
+        description: "SemVer tag to build (e.g. v1.0.1)"
+        required: false
+        type: string
 
 jobs:
   build:
@@ -27,19 +38,42 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+#      - name: Prepare tags
+#        id: prep
+#        run: |
+#          IMAGE="blackbandit1804/teamspeak-mariadb"
+#          # immer latest
+#          TAGS_CSV="${IMAGE}:latest"
+#          # bei Git-Tag zusätzlich :vX.Y.Z und :X.Y.Z
+#          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+#            RAW="${GITHUB_REF_NAME}"   # z.B. v1.0.0
+#            CLEAN="${RAW#v}"           # 1.0.0
+#            TAGS_CSV="${TAGS_CSV},${IMAGE}:${RAW},${IMAGE}:${CLEAN}"
+#          fi
+#          # Outputs: CSV (für build-push) und SPACE (für Schleifen)
+#          echo "tags=${TAGS_CSV}" >> "$GITHUB_OUTPUT"
+#          echo "tags_space=$(echo "${TAGS_CSV}" | tr ',' ' ')" >> "$GITHUB_OUTPUT"
+
       - name: Prepare tags
         id: prep
+        shell: bash
         run: |
+          set -euo pipefail
           IMAGE="blackbandit1804/teamspeak-mariadb"
-          # immer latest
           TAGS_CSV="${IMAGE}:latest"
-          # bei Git-Tag zusätzlich :vX.Y.Z und :X.Y.Z
-          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
-            RAW="${GITHUB_REF_NAME}"   # z.B. v1.0.0
-            CLEAN="${RAW#v}"           # 1.0.0
+
+          RAW=""
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            RAW="${{ github.event.inputs.version }}"
+          elif [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+            RAW="${GITHUB_REF_NAME}"
+          fi
+
+          if [ -n "$RAW" ]; then
+            CLEAN="${RAW#v}"
             TAGS_CSV="${TAGS_CSV},${IMAGE}:${RAW},${IMAGE}:${CLEAN}"
           fi
-          # Outputs: CSV (für build-push) und SPACE (für Schleifen)
+
           echo "tags=${TAGS_CSV}" >> "$GITHUB_OUTPUT"
           echo "tags_space=$(echo "${TAGS_CSV}" | tr ',' ' ')" >> "$GITHUB_OUTPUT"
 
