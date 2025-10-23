@@ -16,6 +16,8 @@ TS3_DB_NAME="${TS3_DB_NAME:-ts3}"
 TS3_DB_USER="${TS3_DB_USER:-ts3}"
 TS3_DB_PASSWORD="${TS3_DB_PASSWORD:-}"
 TS3_DB_KEEPALIVE="${TS3_DB_KEEPALIVE:-60}"
+TS_VER="${TS_VER:-3.13.7}"
+TS_URL="${TS_URL:-https://files.teamspeak-services.com/releases/server/${TS_VER}/teamspeak3-server_linux_amd64-${TS_VER}.tar.bz2}"
 
 EXTRA_START_PARAMS="${EXTRA_START_PARAMS:-}"
 TS3SERVER_LICENSE="${TS3SERVER_LICENSE:-}"
@@ -36,10 +38,10 @@ echo "---Starting---"
 
 # ---- Serverdateien (einmalig) laden, falls fehlen ----
 if [ ! -f "$DATA_DIR/ts3server" ]; then
-  echo "---Downloading TeamSpeak3 Server (3.13.7)---"
+  echo "---Downloading TeamSpeak3 Server (${TS_VER})---"
   TMPDIR="$(mktemp -d)"
   curl -fsSL -o "$TMPDIR/ts3.tar.bz2" \
-    "https://files.teamspeak-services.com/releases/server/3.13.7/teamspeak3-server_linux_amd64-3.13.7.tar.bz2"
+    "${TS_URL}"
   tar -xjf "$TMPDIR/ts3.tar.bz2" -C "$TMPDIR"
   cp -a "$TMPDIR/teamspeak3-server_linux_amd64/." "$DATA_DIR/"
   rm -rf "$TMPDIR"
