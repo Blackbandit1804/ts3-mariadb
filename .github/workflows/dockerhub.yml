@@ -29,7 +29,9 @@ jobs:
 
       - name: Prepare tags
         id: prep
+        shell: bash
         run: |
+          set -euo pipefail
           IMAGE="blackbandit1804/teamspeak-mariadb"
           # immer latest
           TAGS_CSV="${IMAGE}:latest"
@@ -39,7 +41,6 @@ jobs:
             CLEAN="${RAW#v}"           # 1.0.0
             TAGS_CSV="${TAGS_CSV},${IMAGE}:${RAW},${IMAGE}:${CLEAN}"
           fi
-
           # Outputs: CSV (für build-push) und SPACE (für Schleifen)
           echo "tags=${TAGS_CSV}" >> "$GITHUB_OUTPUT"
           echo "tags_space=$(echo "${TAGS_CSV}" | tr ',' ' ')" >> "$GITHUB_OUTPUT"
@@ -55,11 +56,13 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Healthcheck: tags available on Docker Hub
+        shell: bash
         run: |
           set -euo pipefail
-          for TAG in ${{ steps.prep.outputs.tags_space }}; do
-            echo "🔎 Checking availability for: $TAG"
+          TAGS="${{ steps.prep.outputs.tags_space }}"
+          for TAG in $TAGS; do
+            echo "Checking availability for: $TAG"
             docker buildx imagetools inspect "$TAG" >/dev/null
-            echo "✅ OK: $TAG found"
+            echo "OK: $TAG found"
           done
-          echo "🎉 All tags are available on Docker Hub."
+          echo "All tags are available on Docker Hub."
