@@ -17,7 +17,7 @@ ENV DATA_DIR="/teamspeak" \
     GID=100 \
     DATA_PERM=770 \
     USER="teamspeak" \
-    # MariaDB-ENV (nur Defaults; real setzt du sie später im Template/UI)
+    # MariaDB-ENV (nur Defaults; real werden sie später im Template/UI gesetzt)
     TS3_DB_HOST="" \
     TS3_DB_PORT="3306" \
     TS3_DB_NAME="ts3" \
