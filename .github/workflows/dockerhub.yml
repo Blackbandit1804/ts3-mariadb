@@ -29,9 +29,7 @@ jobs:
 
       - name: Prepare tags
         id: prep
-        shell: bash
         run: |
-          set -euo pipefail
           IMAGE="blackbandit1804/teamspeak-mariadb"
           # immer latest
           TAGS_CSV="${IMAGE}:latest"
@@ -55,14 +53,16 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Healthcheck: tags available on Docker Hub
+      - name: "Healthcheck: tags available on Docker Hub"
         shell: bash
+        env:
+          TAGS: ${{ steps.prep.outputs.tags_space }}
         run: |
           set -euo pipefail
-          TAGS="${{ steps.prep.outputs.tags_space }}"
           for TAG in $TAGS; do
-            echo "Checking availability for: $TAG"
+            echo "🔎 Checking availability for: $TAG"
             docker buildx imagetools inspect "$TAG" >/dev/null
-            echo "OK: $TAG found"
+            echo "✅ OK: $TAG found"
           done
-          echo "All tags are available on Docker Hub."
+          echo "🎉 All tags are available on Docker Hub."
+
