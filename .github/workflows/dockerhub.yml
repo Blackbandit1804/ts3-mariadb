@@ -38,44 +38,19 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-#      - name: Prepare tags
-#        id: prep
-#        run: |
-#          IMAGE="blackbandit1804/teamspeak-mariadb"
-#          # immer latest
-#          TAGS_CSV="${IMAGE}:latest"
-#          # bei Git-Tag zusätzlich :vX.Y.Z und :X.Y.Z
-#          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
-#            RAW="${GITHUB_REF_NAME}"   # z.B. v1.0.0
-#            CLEAN="${RAW#v}"           # 1.0.0
-#            TAGS_CSV="${TAGS_CSV},${IMAGE}:${RAW},${IMAGE}:${CLEAN}"
-#          fi
-#          # Outputs: CSV (für build-push) und SPACE (für Schleifen)
-#          echo "tags=${TAGS_CSV}" >> "$GITHUB_OUTPUT"
-#          echo "tags_space=$(echo "${TAGS_CSV}" | tr ',' ' ')" >> "$GITHUB_OUTPUT"
 
       - name: Prepare tags
         id: prep
-        shell: bash
         run: |
-          set -euo pipefail
           IMAGE="blackbandit1804/teamspeak-mariadb"
           TAGS_CSV="${IMAGE}:latest"
-
-          RAW=""
-          if [ -n "${{ github.event.inputs.version }}" ]; then
-            RAW="${{ github.event.inputs.version }}"
-          elif [ "${GITHUB_REF_TYPE}" = "tag" ]; then
-            RAW="${GITHUB_REF_NAME}"
+          if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
+            RAW="${GITHUB_REF_NAME}"   # z.B. v1.0.1
+            TAGS_CSV="${TAGS_CSV},${IMAGE}:${RAW}"
           fi
-
-          if [ -n "$RAW" ]; then
-            CLEAN="${RAW#v}"
-            TAGS_CSV="${TAGS_CSV},${IMAGE}:${RAW},${IMAGE}:${CLEAN}"
-          fi
-
           echo "tags=${TAGS_CSV}" >> "$GITHUB_OUTPUT"
           echo "tags_space=$(echo "${TAGS_CSV}" | tr ',' ' ')" >> "$GITHUB_OUTPUT"
+
 
       - name: Build & Push (linux/amd64)
         uses: docker/build-push-action@v6
