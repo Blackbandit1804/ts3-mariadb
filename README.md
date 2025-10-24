@@ -128,4 +128,4 @@ docker logs -f TeamSpeak3-MariaDB
 ## 📎 Herkunft
 
 Dieses Image ist **nicht** direkt aus `ich777/docker-teamspeak` gebaut, sondern ein eigenständiger Build.  
-Wir haben uns am Stil (UID/GID/UMASK) orientiert und ergänzt um: MariaDB‑Integration, automatische INIs, `gosu`‑Start, `TS_VER`/`TS_URL`‑Logik.
+Ich habe mich am Stil (UID/GID/UMASK) orientiert und ergänzt um: MariaDB‑Integration, automatische INIs, `gosu`‑Start, `TS_VER`/`TS_URL`‑Logik.
