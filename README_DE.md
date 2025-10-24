@@ -1,7 +1,5 @@
 # 🧩 TeamSpeak 3 Server – MariaDB-ready (Unraid)
 
-🌍 Read this in: 🇩🇪 [Deutsch](README_DE.md) · 🇬🇧 [English](README_EN.md)
-
 ![Docker Pulls](https://img.shields.io/docker/pulls/blackbandit1804/teamspeak-mariadb?style=for-the-badge&logo=docker)
 ![Image Size](https://img.shields.io/docker/image-size/blackbandit1804/teamspeak-mariadb/latest?style=for-the-badge)
 ![GitHub Release](https://img.shields.io/github/v/release/Blackbandit1804/ts3-mariadb?style=for-the-badge&logo=github)
